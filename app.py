@@ -20,6 +20,7 @@ if not api_key:
 
 if api_key:
   genai.configure(api_key=api_key)
+  # Correct model name
   model = genai.GenerativeModel("gemini-1.5-flash")
 
   if "messages" not in st.session_state:
@@ -40,3 +41,4 @@ if api_key:
       st.session_state.messages.append(
           {"role": "assistant", "content": response.text}
       )
+
