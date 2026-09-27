@@ -1,50 +1,56 @@
-import os
-from google import genai
+import google.generativeai as genai
 import streamlit as st
 
-# Page Config
+# Page Configuration
 st.set_page_config(page_title="Sameer AI", page_icon="🤖")
 
+# Custom Title & Developer Details
 st.title("🤖 Welcome to Sameer AI")
-st.caption("Created by Sameer | Powered by Gemini")
+st.caption("Developed by Sameer | Powered by Advanced AI")
 
+# Sidebar - Creator Information
 with st.sidebar:
-    st.header("About Creator")
-    st.write("**Developer:** Sameer")
-    st.write("Welcome to Sameer AI! Ask me anything.")
+    st.header("About the Creator")
+    st.write("**Name:** Sameer")
+    st.write(
+        "Welcome to Sameer AI! This assistant is designed to help you answer questions, solve problems, and provide helpful insights."
+    )
+    st.markdown("---")
+    st.write("Created with ❤️ by Sameer")
 
-# Get API Key from Streamlit Secrets
+# Get API Key securely from secrets
 api_key = st.secrets.get("GEMINI_API_KEY")
 
 if not api_key:
     st.error(
-        "API Key missing! Streamlit Secrets me GEMINI_API_KEY add karein."
+        "API Key missing! Please configure GEMINI_API_KEY in Streamlit Secrets."
     )
     st.stop()
 
-# Initialize Gemini Client
-client = genai.Client(api_key=api_key)
+# Configure Gemini Model
+genai.configure(api_key=api_key)
+model = genai.GenerativeModel("gemini-1.5-flash")
 
+# Initialize Chat History
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
+# Display Chat History
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-if prompt := st.chat_input("Ask Sameer AI..."):
+# User Input
+if prompt := st.chat_input("Ask Sameer AI anything..."):
     st.chat_message("user").markdown(prompt)
     st.session_state.messages.append({"role": "user", "content": prompt})
 
     try:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=prompt,
-        )
+        response = model.generate_content(prompt)
         with st.chat_message("assistant"):
             st.markdown(response.text)
         st.session_state.messages.append(
             {"role": "assistant", "content": response.text}
         )
     except Exception as e:
-        st.error(f"Error: {e}")
+        st.error(f"Error generating response: {e}")
