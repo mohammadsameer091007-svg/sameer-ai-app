@@ -1,6 +1,15 @@
 import google.generativeai as genai
 import streamlit as st
-
+st.markdown(
+    """
+    <style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    </style>
+    """,
+    unsafe_allow_dict=True,
+)
 # Page Configuration
 st.set_page_config(page_title="Sameer AI", page_icon="🤖")
 
