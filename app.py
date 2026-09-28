@@ -2,8 +2,7 @@ import google.generativeai as genai
 import streamlit as st
 
 # Page Configuration
-st.set_page_config(page_title="Sameer AI", page_icon="🤖")
-
+st.set_page_config(page_title="Sameer AI", page_icon="logo.png", layout="centered")
 # Custom Title & Developer Details
 st.title("🤖 Welcome to Sameer AI")
 st.caption("Developed by Sameer | Powered by Advanced AI")
