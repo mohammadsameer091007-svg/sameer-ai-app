@@ -3,7 +3,10 @@ import streamlit as st
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="Sameer AI", page_icon="🤖", layout="centered"
+    page_title="Sameer AI",
+    page_icon="🤖",
+    layout="centered",
+    initial_sidebar_state="expanded",  # Isse sidebar humesha khula rahega
 )
 
 # 2. Streamlit Footer aur Header Hide Karne Ke Liye (Clean Look)
