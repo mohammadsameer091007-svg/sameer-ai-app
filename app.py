@@ -9,13 +9,17 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# 2. Streamlit Footer & Top Toolbar Hide Karne Ke Liye
+# 2. Streamlit Footer, GitHub Icon aur Edit Option Hide Karne Ke Liye
 st.markdown(
     """
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
-    [data-testid="stToolbar"] {visibility: hidden;}
+    /* GitHub Icon aur Edit Button Chhipane Ke Liye */
+    .stAppHeader a[aria-label*="GitHub"],
+    .stAppHeader button[title*="Edit"] {
+        display: none !important;
+    }
     </style>
     """,
     unsafe_allow_html=True,
