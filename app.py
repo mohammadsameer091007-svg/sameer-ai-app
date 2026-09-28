@@ -9,18 +9,15 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# 2. Streamlit Footer, Main Menu aur Top Right Toolbar Hide Karne Ke Liye
+# 2. Top Right Icons Hide Karne Aur Sidebar Arrow Ko Dikhane Ke Liye CSS
 st.markdown(
     """
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     
-    /* Top Right Side ke Toolbar Buttons (GitHub, Edit, Share) Ko Hide Karne Ke Liye */
-    header [data-testid="stHeaderActionElements"] {
-        display: none !important;
-    }
-    header [data-testid="stToolbar"] {
+    /* Dedicated targeting: Top-right header buttons hide, Sidebar arrow visible */
+    [data-testid="stHeader"] > div:nth-child(2) {
         display: none !important;
     }
     </style>
@@ -67,6 +64,9 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 # 8. Display Chat History
+for message in st.message_state if "messages" in st.session_state else []:
+    pass
+
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
