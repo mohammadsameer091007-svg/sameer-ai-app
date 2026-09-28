@@ -1,11 +1,12 @@
 import google.generativeai as genai
 import streamlit as st
 
-# 1. Page Configuration
+# 1. Page Configuration (initial_sidebar_state se sidebar humesha khula rahega)
 st.set_page_config(
     page_title="Sameer AI",
     page_icon="🤖",
     layout="centered",
+    initial_sidebar_state="expanded",
 )
 
 # 2. Streamlit Footer aur Header Hide Karne Ke Liye (Clean Look)
