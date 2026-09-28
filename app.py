@@ -6,15 +6,16 @@ st.set_page_config(
     page_title="Sameer AI",
     page_icon="🤖",
     layout="centered",
-    initial_sidebar_state="expanded",  # Isse sidebar humesha khula rahega
+    initial_sidebar_state="expanded",
 )
 
-# 2. Streamlit Footer aur Header Hide Karne Ke Liye (Clean Look)
+# 2. Streamlit Footer & Top Toolbar Hide Karne Ke Liye
 st.markdown(
     """
     <style>
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
+    [data-testid="stToolbar"] {visibility: hidden;}
     </style>
     """,
     unsafe_allow_html=True,
@@ -52,7 +53,7 @@ if not api_key:
 
 # 6. Configure Gemini Model
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("gemini-3.8-flash")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 # 7. Initialize Chat History
 if "messages" not in st.session_state:
