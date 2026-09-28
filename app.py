@@ -15,7 +15,7 @@ st.markdown(
     header {visibility: hidden;}
     </style>
     """,
-    unsafe_allow_dict=True,
+    unsafe_allow_html=True,  # Yahan sahi word 'unsafe_allow_html' hai
 )
 
 # 3. Logo aur Title Display
@@ -51,7 +51,7 @@ if not api_key:
 
 # 6. Configure Gemini Model
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("gemini-3.8-flash")
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 # 7. Initialize Chat History
 if "messages" not in st.session_state:
