@@ -61,8 +61,7 @@ if not api_key:
 
 # 8. Configure Gemini Model
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("gemini-pro")
-
+model = genai.GenerativeModel("models/gemini-1.5-flash")
 # 9. Display Existing Chat History
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
