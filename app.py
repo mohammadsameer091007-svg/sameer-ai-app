@@ -3,7 +3,7 @@ import streamlit as st
 
 # 1. Page Configuration
 st.set_page_config(
-    page_title="Sameer AI", page_icon="logo.png", layout="centered"
+    page_title="Sameer AI", page_icon="🤖", layout="centered"
 )
 
 # 2. Streamlit Footer aur Header Hide Karne Ke Liye (Clean Look)
@@ -15,11 +15,10 @@ st.markdown(
     header {visibility: hidden;}
     </style>
     """,
-    unsafe_allow_html=True,  # Yahan sahi word 'unsafe_allow_html' hai
+    unsafe_allow_html=True,
 )
 
-# 3. Logo aur Title Display
-st.image("logo.png", width=120)  # Header logo
+# 3. Title Display
 st.title("🤖 Welcome to Sameer AI")
 st.caption("Developed by Sameer | Powered by Advanced AI")
 
