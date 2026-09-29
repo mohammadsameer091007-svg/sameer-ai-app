@@ -88,7 +88,7 @@ if not api_key:
 
 # 7. Configure Model
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("gemini-3.1-flash")
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 # 8. Display Chat Messages Below Title
 for message in st.session_state.messages:
