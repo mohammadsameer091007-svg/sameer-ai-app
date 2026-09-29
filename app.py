@@ -21,7 +21,7 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# 3. Title
+# 3. Header & Welcome Message Always Fixed at Top
 st.title("🤖 Welcome to Sameer AI")
 st.caption("Developed by Sameer | Powered by Advanced AI")
 
@@ -29,7 +29,7 @@ st.caption("Developed by Sameer | Powered by Advanced AI")
 if "messages" not in st.session_state:
   st.session_state.messages = []
 
-# 5. About Section (Sirf starting me dikhega)
+# 5. About Section (Sirf Chat Start hone se Pahle Dikhega)
 if len(st.session_state.messages) == 0:
   st.markdown("---")
   st.markdown("### 📌 About the Creator")
@@ -55,29 +55,36 @@ if not api_key:
   )
   st.stop()
 
-# 7. Configure Model
+# 7. Configure Correct Model Name
 genai.configure(api_key=api_key)
 model = genai.GenerativeModel("gemini-3.5-flash")
 
-# 8. Display Chat History Standard Way (Normal Page Scroll)
+# 8. Display Chat Messages Below Title
 for message in st.session_state.messages:
   with st.chat_message(message["role"]):
     st.markdown(message["content"])
 
-# 9. Handle User Input & Stream Response
+# 9. Handle User Input
 if prompt := st.chat_input("Ask something..."):
-  # Append User Message
+  # User ka message add karein
   st.session_state.messages.append({"role": "user", "content": prompt})
-  with st.chat_message("user"):
-    st.markdown(prompt)
 
-  # Generate Assistant Response
+  # Instant UI update ke liye rerun karein (jisse 'About Section' turant gayab ho jaye)
+  st.rerun()
+
+# 10. Generate Response if last message is from user
+if (
+    st.session_state.messages
+    and st.session_state.messages[-1]["role"] == "user"
+):
   with st.chat_message("assistant"):
     try:
-      response = model.generate_content(prompt)
+      user_prompt = st.session_state.messages[-1]["content"]
+      response = model.generate_content(user_prompt)
       st.markdown(response.text)
       st.session_state.messages.append(
           {"role": "assistant", "content": response.text}
       )
+      st.rerun()
     except Exception as e:
       st.error(f"Error generating response: {e}")
