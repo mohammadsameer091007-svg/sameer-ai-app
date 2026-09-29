@@ -61,24 +61,27 @@ if not api_key:
 
 # 8. Configure Gemini Model
 genai.configure(api_key=api_key)
-model = genai.GenerativeModel("models/gemini-3.5-flash")
-# 9. Display Existing Chat History
-for message in st.session_state.messages:
+model = genai.GenerativeModel("models/gemini-1.5-flash")
+
+# 9. Fixed Height Chat Scroll Container
+chat_container = st.container(height=500)
+
+with chat_container:
+  for message in st.session_state.messages:
     with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+      st.markdown(message["content"])
 
-# 10. User Input & AI Response
-if prompt := st.chat_input("Ask Sameer AI anything..."):
-    st.chat_message("user").markdown(prompt)
-    st.session_state.messages.append({"role": "user", "content": prompt})
+# 10. Chat Input
+if prompt := st.chat_input("Ask something..."):
+  st.session_state.messages.append({"role": "user", "content": prompt})
+  with chat_container:
+    with st.chat_message("user"):
+      st.markdown(prompt)
 
-    try:
-        response = model.generate_content(prompt)
-        with st.chat_message("assistant"):
-            st.markdown(response.text)
-        st.session_state.messages.append(
-            {"role": "assistant", "content": response.text}
-        )
-        st.rerun()  # Screen refresh karke Creator Card ko hata dega
-    except Exception as e:
-        st.error(f"Error generating response: {e}")
+    with st.chat_message("assistant"):
+      response = model.generate_content(prompt)
+      st.markdown(response.text)
+      st.session_state.messages.append(
+          {"role": "assistant", "content": response.text}
+      )
+  st.rerun()
